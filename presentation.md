@@ -211,13 +211,98 @@ mkdir -p /hexlet
 
 # Идемпотентность
 
+Идемпотентность — это свойство, которое команда развертывания всегда задает целевую среду в той же конфигурации независимо от состояния запуска среды.
+
+<!--
+https://docs.microsoft.com/ru-ru/devops/deliver/what-is-infrastructure-as-code
+ -->
 
 ---
-# Автоматизация настройки сервера
 
 # Ansible
 
-* Автоматизировать процесс настройки локального окружения
-* Автоматизировать процесс настройки серверов
-* Описывать инфраструктуру как код
-* Идемпотентность
+* Автоматизировать процесс настройки локального окружения и удаленных серверов
+* Автоматизировать процесс сборки, деплоя
+* Инфраструктура как код
+* Обеспечивает идемпотентность
+
+
+---
+
+# Ansible
+
+```sh
+ansible             ansible-console     ansible-inventory   ansible-pull
+ansible-config      ansible-doc         ansible-lint        ansible-vault
+ansible-connection  ansible-galaxy      ansible-playbook
+```
+
+```makefile
+install:
+	ansible-galaxy install -r requirements.yml
+
+ping:
+	ansible -i inventory.yml all -m ping
+
+deploy:
+	ansible-playbook playbook.yml -i inventory.ini --vault-password-file vault-password
+```
+
+<!--
+https://github.com/fey/dotfiles
+https://github.com/fey/devops-for-programmers-project-lvl2
+https://galaxy.ansible.com/
+-->
+
+---
+
+# Continious integration
+
+![ci example](assets/hexlet-ci.jpg)
+
+<!--
+https://www.atlassian.com/ru/continuous-delivery/continuous-integration
+-->
+
+---
+
+# Continious integration
+
+Непрерывная интеграция (CI) - это практика автоматизации интеграции изменений кода от нескольких авторов в единый программный проект.
+
+Отсутвие CI приводит к :
+
+* Необходимости самостоятельно координировать действия и общаться при внесении изменений. кода в конечный продукт
+
+* Github Actions
+* Gitlab CI
+* Jenkins
+
+---
+
+# Continious integration
+
+## Github Actions
+
+* Бесплатно для открытых репозиториев
+* Тарифы для закрытых репозиториев
+* Есть Экшены - готовые скрипты
+* Подходит для различных учебных и пет-проектов
+
+<!--
+https://github.com/Hexlet/hexlet-sicp
+https://github.com/Hexlet/hexlet-cv/blob/master/.github/workflows/push.yml
+https://github.com/hexlet-boilerplates/php-package/blob/master/.github/workflows/workflow.yml
+-->
+
+---
+
+
+# Continious integration
+
+## Gitlab CI
+
+* Часто используется
+<!--
+https://gitlab.com/feycot/xsolla-summer-school-backend-2021
+-->
