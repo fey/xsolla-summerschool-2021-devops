@@ -421,9 +421,30 @@ https://thenewstack.io/deployment-strategies/
 
 ---
 
-## Devops
+# Devops
 
 DevOps - методология взаимодействия разработчиков, тестировщиков, специалистов эксплуатации, представителей бизнеса-направления
 
-![bg right w:90%](assets/devops-tools.jpeg)
+![bg right w:90%](assets/habr-devops-is.png)
 
+---
+
+# Литература
+
+* "Цель. Процесс непрерывного совершенствования" Элияху Голдратт
+* "Проект «Феникс». Роман о том, как DevOps меняет бизнес к лучшему" Джин Ким, Джордж Спаффорд, Кевин Бер
+* "Kubernetes в действии" Лукша Марко
+
+![bg right fit](assets/books/goal.jpg)
+![bg right fit](assets/books/project-phoenix.jpg)
+![bg right fit](assets/books/kubernetes-in-action.jpg)
+
+---
+
+# Ссылки
+
+* Гайды - https://guides.hexlet.io/
+* Ansible - https://www.ansible.com/
+* [Никита Соболев — Автоматизируем все с Github Actions](https://www.youtube.com/watch?v=QoCSvwkP_lQ)
+* [Инфраструктура как код](https://www.youtube.com/watch?v=m_5sos7i1Qk)
+* [Вебинар: Stateful vs. Stateless ](https://www.youtube.com/watch?v=WPCz_U7D8PI)
