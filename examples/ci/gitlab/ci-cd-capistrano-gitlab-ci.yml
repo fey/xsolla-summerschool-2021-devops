@@ -1,0 +1,60 @@
+stages:
+  - build
+  - linter
+  - test
+  - deploy
+build app:
+  image: composer:latest
+  stage: build
+  script:
+    - composer install
+  cache:
+    key:
+      files:
+        - composer.lock
+        - src/Pages/Frontend/package-lock.json
+    paths:
+      - vendor
+  artifacts:
+    name:      "$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - app
+      - config
+      - public
+      - src
+      - tests
+      - vendor
+      - phpunit.xml
+    when:      on_success
+    expire_in: 30min
+
+tests:
+  image: php:7.3
+  stage: test
+  script:
+    - pecl install xdebug
+    - docker-php-ext-enable xdebug
+    - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    - bash <(curl -s https://codecov.io/bash) -f build/logs/clover.xml
+  dependencies:
+    - build app
+
+deploy:
+  dependencies:
+    - tests
+  image: ruby:2.3
+  stage: deploy
+  script:
+    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+    - eval $(ssh-agent -s)
+    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - gem update --system
+    - gem install capistrano
+    - gem install capistrano-composer
+    - gem which capistrano
+    - cap production deploy
+  only:
+    - master

@@ -255,7 +255,7 @@ https://galaxy.ansible.com/
 
 ---
 
-# Continious integration
+# Continuous integration
 
 ![ci example](assets/hexlet-ci.jpg)
 
@@ -265,7 +265,7 @@ https://www.atlassian.com/ru/continuous-delivery/continuous-integration
 
 ---
 
-# Continious integration
+# Continuous integration
 
 * Непрерывная интеграция (CI) - это практика автоматизации интеграции изменений кода от нескольких авторов в единый программный проект.
 * В основе процесса CI лежит система контроля версий исходного кода.
@@ -275,7 +275,7 @@ https://www.atlassian.com/ru/continuous-delivery/continuous-integration
 
 ---
 
-# Continious integration
+# Continuous integration
 
 ## Инструменты для CI
 
@@ -285,12 +285,12 @@ https://www.atlassian.com/ru/continuous-delivery/continuous-integration
 
 ---
 
-# Continious integration
+# Continuous integration
 
 ## Github Actions
 
+* *.github/workflows/<workflow_name>.yml*
 * Бесплатно для открытых репозиториев
-* Тарифы для закрытых репозиториев
 * Есть Экшены - готовые скрипты
 * Подходит для различных учебных и пет-проектов
 
@@ -303,11 +303,109 @@ https://github.com/hexlet-boilerplates/php-package/blob/master/.github/workflows
 ---
 
 
-# Continious integration
+# Continuous integration
 
 ## Gitlab CI
 
-* Часто используется
+* Конфиг для CI берется из *.gitlab-ci.yml*
+* Позволяет использовать шаблоны
+* Можно развернуть на своей инфраструктуре
+
 <!--
 https://gitlab.com/feycot/xsolla-summer-school-backend-2021
+[](examples/ci/gitlab/ci-cd-capistrano-gitlab-ci.yml)
+[](examples/ci/gitlab/ci-docker-gitlab-ci.ymll)
 -->
+
+---
+
+# Деплой
+
+Деплой – процесс “разворачивания” веб-сервиса, например, сайта, в рабочем окружении. Рабочее окружение – место где сайт запускается и доступен для запросов.
+
+1. Код проекта скачивается на сервер (обычно через клонирование Git)
+1. Ставятся все необходимые зависимости
+1. Выполняется процесс сборки, например собирается фронтенд-часть
+1. Выполняются миграции. Миграции — SQL-скрипты, которые изменяют структуру базы данных
+1. Запускается новая версия кода
+
+<!--
+https://guides.hexlet.io/deploy/
+-->
+
+---
+
+# Деплой
+
+## Зачем автоматизировать?
+
+* Нужно заходить на сервер
+* Перезапуск сервисов
+* Иногда нужно откатывать миграции
+* Можно реализовать различные стратегии деплоя
+* Zero downtime deployment
+
+---
+
+# Средства автоматизации деплоя
+
+* Capistrano, Deployer
+* Ansible
+* Docker, Kubernetes
+* CI tools
+
+---
+
+# Стратегии деплоя
+
+* Recreate - просто убиваем старую версию, запускаем новую
+* Ramped (rolling-update or incremental) - Старая версия постепенно заменяется новой
+* Blue/Green - новая версия живет вместе старой. Потом старая отключается
+* Canary - часть  трафика уходит на новую версию
+* A/B testing - деление трафика по определенному признаку
+* Shadow - дублирование трафика на новую версию без влияния на основное приложение
+
+<!--
+https://thenewstack.io/deployment-strategies/
+-->
+
+---
+
+![bg h:80%](assets/k8s-deployment-strategies.png)
+
+---
+
+# Continuous Deployment
+
+Непрерывное развертывание (CD) - это процесс выпуска ПО, который использует автоматизированное тестирование для проверки правильности и стабильности изменений в кодовой базе для немедленного автономного развертывания в производственной среде.
+
+![bg right](assets/atlassian-cd-diagram.png)
+
+---
+
+# CI/CD Pipeline
+
+![](assets/cicd-pipeline.png)
+
+---
+
+# А куда деплоить?
+
+* Shared hosting
+* Clouds
+* Github Pages
+* Remote server
+
+---
+# Heroku
+
+* Бесплатно для для маленьких проектов
+* Можно подключить домен
+* Можно подключить базу, редис и тд
+* CLI для управления приложением
+
+![bg right w:70%](assets/heroku-deploy.gif)
+
+---
+
+# Digital Ocean

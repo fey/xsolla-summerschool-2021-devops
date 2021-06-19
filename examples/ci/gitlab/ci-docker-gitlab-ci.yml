@@ -1,0 +1,29 @@
+default:
+  image: docker/compose:debian-1.29.1
+  services:
+    - docker:dind
+
+variables:
+  COMPOSE_PROJECT_NAME: xsolla-summer-school-backend-2021-ci
+  COMPOSE_FILE: docker-compose.yml
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker-compose  build
+    - docker-compose run app make setup
+    - docker-compose up --abort-on-container-exit
+
+deploy:
+  stage: deploy
+  dependencies:
+    - build
+  when: on_success
+  only:
+    - master
+  script:
+    - echo "RUN DEPLOY"
