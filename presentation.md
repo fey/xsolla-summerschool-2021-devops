@@ -350,9 +350,13 @@ https://guides.hexlet.io/deploy/
 # Средства автоматизации деплоя
 
 * Capistrano, Deployer
-* Ansible
+* Ansible ([deploy_helper](https://docs.ansible.com/ansible/latest/collections/community/general/deploy_helper_module.html#examples), [ansistrano](https://github.com/ansistrano/deploy))
 * Docker, Kubernetes
 * CI tools
+
+<!--
+https://github.com/ansistrano/deploy
+-->
 
 ---
 
@@ -409,3 +413,17 @@ https://thenewstack.io/deployment-strategies/
 ---
 
 # Digital Ocean
+
+* Создание чистых или преднастроенных машин (С докером, приложениями)
+* Создание базы данных, кластеров Kubernetes
+* Парковка домена
+* При регистрации по [ссылке](https://m.do.co/c/e702f9a99145) выдают 100$ на 60 дней
+
+---
+
+## Devops
+
+DevOps - методология взаимодействия разработчиков, тестировщиков, специалистов эксплуатации, представителей бизнеса-направления
+
+![bg right w:90%](assets/devops-tools.jpeg)
+
