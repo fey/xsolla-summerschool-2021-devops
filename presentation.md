@@ -461,3 +461,4 @@ DevOps - методология взаимодействия разработч�
 * [Никита Соболев — Автоматизируем все с Github Actions](https://www.youtube.com/watch?v=QoCSvwkP_lQ)
 * [Инфраструктура как код](https://www.youtube.com/watch?v=m_5sos7i1Qk)
 * [Вебинар: Stateful vs. Stateless ](https://www.youtube.com/watch?v=WPCz_U7D8PI)
+* [Интервью с Алексеем Шараповым: о микросервисах](https://www.youtube.com/watch?v=OeUzjV6wPlc)
