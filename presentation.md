@@ -161,6 +161,8 @@ ssh root@ipaddress
 sh ~/mybashscript.sh
 ```
 
+![bg right w:80%](assets/bash-meets-tools-meme.jpg)
+
 ---
 
 # Автоматизация настройки сервера
