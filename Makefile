@@ -4,3 +4,6 @@ presentation:
 build:
 	rm -rf build
 	npx @marp-team/marp-cli presentation.md -o build/index.html
+	cp -r assets build/assets
+
+.PHONY: build
