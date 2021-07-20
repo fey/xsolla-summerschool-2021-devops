@@ -2,3 +2,4 @@ presentation.html
 node_modules
 **/*.log
 build
+feedback

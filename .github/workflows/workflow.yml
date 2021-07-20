@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install marpit-cli
-        run: npm install -g @marp-team/marp-cli
+      - name: Install
+        run: make install
 
       - name: Create presentation
         run: make build

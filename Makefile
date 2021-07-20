@@ -1,9 +1,12 @@
-presentation:
-	npx @marp-team/marp-cli -w presentation.md
+
+install:
+	npm ci
+
+start:
+	npx slidev presentation.md --open
 
 build:
 	rm -rf build
-	npx @marp-team/marp-cli presentation.md -o build/index.html
-	cp -r assets build/assets
+	npx slidev build presentation.md -o build
 
 .PHONY: build

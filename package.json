@@ -1,0 +1,13 @@
+{
+  "name": "xsolla-summerschool-2021-devops",
+  "private": true,
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fey/xsolla-summerschool-2021-devops.git"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.22.1",
+    "slidev-theme-hexlet": "^0.0.11"
+  }
+}
