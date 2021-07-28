@@ -6,22 +6,14 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      # Node versions list
-      matrix:
-        node-version: [14.x]
-
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
       - name: Use Node.js ${{ matrix.node-version }}
-        # Configures the node version used on GitHub-hosted runners
-        # https://github.com/actions/setup-node
         uses: actions/setup-node@v1
-        # The Node.js version to configure
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.x
 
       - name: Install
         run: make install
@@ -30,7 +22,7 @@ jobs:
         run: make build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.3
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build
+        run: make deploy
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}

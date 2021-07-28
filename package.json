@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@slidev/cli": "^0.22.1",
-    "slidev-theme-hexlet": "^0.0.11"
+    "slidev-theme-hexlet": "^0.0.11",
+    "surge": "^0.23.0"
   }
 }

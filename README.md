@@ -7,11 +7,11 @@ Demo: [https://fey.github.io/xsolla-summerschool-2021-devops/](https://fey.githu
 ## Prerequesites
 
 * nodejs 16+
-* marpit
 
 ## Setup
 
-```sh
-npm install -g @marpit-team/marp-cli
-make presentation
+```shell
+make install
+make start
+make deploy
 ```
