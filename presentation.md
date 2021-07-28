@@ -538,6 +538,7 @@ layout: center
 * Есть Экшены - готовые скрипты
 * Подходит для различных учебных и пет-проектов
 
+<small>[Пример Github Actions для проекта на Laravel (PHP)](https://github.com/hexlet-components/php-laravel-blog/blob/master/.github/workflows/master.yml) </small>
 <!--
 https://github.com/Hexlet/hexlet-sicp
 https://github.com/Hexlet/hexlet-cv/blob/master/.github/workflows/push.yml
@@ -546,20 +547,25 @@ https://github.com/hexlet-boilerplates/php-package/blob/master/.github/workflows
 
 ---
 
-
-# Continuous integration
-
-## Gitlab CI
+# Gitlab CI
 
 * Конфиг для CI берется из *.gitlab-ci.yml*
 * Позволяет использовать шаблоны
 * Можно развернуть на своей инфраструктуре
+
+<!-- TODO добавить пример -->
 
 <!--
 https://gitlab.com/feycot/xsolla-summer-school-backend-2021
 [](examples/ci/gitlab/ci-cd-capistrano-gitlab-ci.yml)
 [](examples/ci/gitlab/ci-docker-gitlab-ci.ymll)
 -->
+
+---
+layout: center
+---
+
+# Деплой
 
 ---
 
@@ -593,14 +599,41 @@ https://guides.hexlet.io/deploy/
 
 # Средства автоматизации деплоя
 
-* Capistrano, Deployer
-* Ansible ([deploy_helper](https://docs.ansible.com/ansible/latest/collections/community/general/deploy_helper_module.html#examples), [ansistrano](https://github.com/ansistrano/deploy))
-* Docker, Kubernetes
-* CI tools
+Инструменты зависят от того, каким образом запускается приложение
+* Capistrano, Deployer - чтобы перезапустить что-нибудь или подготовить новую директорию или помочь в роллбеке (откате) деплоя
+* Ansible ([deploy_helper](https://docs.ansible.com/ansible/latest/collections/community/general/deploy_helper_module.html#examples), [ansistrano](https://github.com/ansistrano/deploy)) - Тоже, что capistrano, deployer, только больше возможностей
+* Docker - Просто указываем новый тег и деплоим :)
+* Kubernetes - указываем нужный тег, применяем изменения, вот и деплой =)
+* CI-сервера (Gitlab CI, Github Actions, Jenkins) - теперь мы можем деплоить не руками, а по коммиту
+* Bash, Make. Можем спрятать процесс деплоя за простой командой `make deploy`. С деплоем справится даже верстальщик (если у него есть нужные доступы)
 
 <!--
 https://github.com/ansistrano/deploy
 -->
+
+---
+
+# Continuous Deployment
+
+> Wiki: Непрерывное развертывание (CD) - это процесс выпуска ПО, который использует автоматизированное тестирование для проверки правильности и стабильности изменений в кодовой базе для немедленного автономного развертывания в производственной среде.
+
+---
+layout: center
+---
+
+# Теперь можем построить CI/CD пайплайн
+
+---
+
+# CI/CD Pipeline
+
+<img src="/hexlet-ci.jpg" />
+
+---
+layout: center
+---
+
+# Стратегии деплоя
 
 ---
 
@@ -620,32 +653,6 @@ https://thenewstack.io/deployment-strategies/
 ---
 layout: image
 image: /k8s-deployment-strategies.png
----
-
----
-
-# Continuous Deployment
-
-Непрерывное развертывание (CD) - это процесс выпуска ПО, который использует автоматизированное тестирование для проверки правильности и стабильности изменений в кодовой базе для немедленного автономного развертывания в производственной среде.
-
-![bg right](/atlassian-cd-diagram.png)
-
----
-
-# CI/CD Pipeline
-
----
-layout: center
----
-
-# Continuous integration на картинке
-
-<img src="/hexlet-ci.jpg" />
-
-<!--
-https://www.atlassian.com/ru/continuous-delivery/continuous-integration
--->
-
 ---
 
 # А куда деплоить?
