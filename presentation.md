@@ -819,6 +819,9 @@ layout: center
 Стратегия деплоя - условно способ раскатки приложения, чтобы обеспечить отсутствие прерывания сервиса (zero-downtime deployment)
 
 ---
+layout: two-cols
+---
+
 
 # Стратегии деплоя - Recreate
 
@@ -826,8 +829,12 @@ layout: center
 * Самый дешевый способ
 * Подходит, если есть некая сессия и приложение в 1 экземпляре (например сервер игры)
 
+::right::
+
 <img src="/deploy-strategies/recreate.gif" class="w-120">
 
+---
+layout: two-cols
 ---
 
 # Стратегии деплоя - Ramped
@@ -836,8 +843,12 @@ layout: center
 * Требуется наличие балансера и минимум 2 сервера
 * База данных должна уметь работать с новой и старой версией приложения
 
+::right::
+
 <img src="/deploy-strategies/ramped.gif" class="w-120">
 
+---
+layout: two-cols
 ---
 
 # Стратегии деплоя - Blue/Green
@@ -845,8 +856,13 @@ layout: center
 * Blue/Green - новая версия живет вместе старой. Потом старая отключается
 * Можно провести эксперименты с новой версией и боевой базой.
 
+::right::
+
 <img src="/deploy-strategies/blue-green.gif" class="w-120">
 
+
+---
+layout: two-cols
 ---
 
 # Стратегии деплоя - Canary
@@ -854,22 +870,32 @@ layout: center
 * Canary - часть трафика уходит на новую версию
 * Может подойти для экспериментов (тестировании фич)
 
+::right::
+
 <img src="/deploy-strategies/canary.gif" class="w-120">
 
+---
+layout: two-cols
 ---
 
 # Стратегии деплоя - A/B testing
 
 * A/B testing - деление трафика по определенному признаку
 
+::right::
+
 <img src="/deploy-strategies/a-b.gif" class="w-120">
 
+---
+layout: two-cols
 ---
 
 # Стратегии деплоя - Shadow
 
 * Shadow - дублирование трафика на новую версию без влияния на основное приложение
 * Могут возникнуть сложности - например задвоение платежных запросов
+
+::right::
 
 <img src="/deploy-strategies/shadow.gif" class="w-120">
 
