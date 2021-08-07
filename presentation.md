@@ -530,6 +530,8 @@ layout: center
 Это только сервера, которые запускают последовательно команды. А запускать они могут что угодно - от баш-скриптов, до docker
 
 ---
+layout: two-cols
+---
 
 # Github Actions
 
@@ -539,12 +541,45 @@ layout: center
 * Подходит для различных учебных и пет-проектов
 
 <small>[Пример Github Actions для проекта на Laravel (PHP)](https://github.com/hexlet-components/php-laravel-blog/blob/master/.github/workflows/master.yml) </small>
+
+::right::
+
+```yaml
+name: PHP CI
+on:
+  - push
+  - pull_request
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      - name: Install
+        run: make install
+      - name: Run linter
+        run: make lint
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.6.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
+```
+
 <!--
 https://github.com/Hexlet/hexlet-sicp
 https://github.com/Hexlet/hexlet-cv/blob/master/.github/workflows/push.yml
 https://github.com/hexlet-boilerplates/php-package/blob/master/.github/workflows/workflow.yml
 -->
 
+---
+layout: two-cols
 ---
 
 # Gitlab CI
@@ -553,7 +588,39 @@ https://github.com/hexlet-boilerplates/php-package/blob/master/.github/workflows
 * Позволяет использовать шаблоны
 * Можно развернуть на своей инфраструктуре
 
-<!-- TODO добавить пример -->
+<img src="/gitlab-ci-interface.png" />
+
+Код справа и изображение выше не связаны между собой
+
+::right::
+
+```yaml
+default:
+  image: docker/compose:debian-1.29.1
+  services:
+    - docker:dind
+variables:
+  COMPOSE_PROJECT_NAME: xsolla-summer-school-backend-2021-ci
+  COMPOSE_FILE: docker-compose.yml
+stages:
+  - build
+  - deploy
+build:
+  stage: build
+  script:
+    - docker-compose  build
+    - docker-compose run app make setup
+    - docker-compose up --abort-on-container-exit
+deploy:
+  stage: deploy
+  dependencies:
+    - build
+  when: on_success
+  only:
+    - master
+  script:
+    - echo "RUN DEPLOY"
+```
 
 <!--
 https://gitlab.com/feycot/xsolla-summer-school-backend-2021
@@ -573,11 +640,17 @@ layout: center
 
 Деплой – процесс “разворачивания” веб-сервиса, например, сайта, в рабочем окружении. Рабочее окружение – место где сайт запускается и доступен для запросов.
 
+Пример шагов:
+
+1. Оповещение о начале деплоя
 1. Код проекта скачивается на сервер (обычно через клонирование Git)
 1. Ставятся все необходимые зависимости
 1. Выполняется процесс сборки, например собирается фронтенд-часть
 1. Выполняются миграции. Миграции — SQL-скрипты, которые изменяют структуру базы данных
 1. Запускается новая версия кода
+1. Оповещение о завершении деплоя (или неудача)
+
+Опционально - обработка ошибок, откат (rollback)
 
 <!--
 https://guides.hexlet.io/deploy/
@@ -594,6 +667,8 @@ https://guides.hexlet.io/deploy/
 * Иногда нужно откатывать миграции
 * Можно реализовать различные стратегии деплоя
 * Zero downtime deployment
+
+**Чем больше действий выполняется вручную, тем выше риск ошибки**
 
 ---
 
@@ -613,15 +688,37 @@ https://github.com/ansistrano/deploy
 
 ---
 
+# Ansible + Capistrano = Ansistrano
+
+* [ansistrano/deploy](https://github.com/ansistrano/deploy)
+
+<img src="/ansistrano-flow.png" />
+
+---
+
+## Start deploying in 3 steps
+
+```yaml
+---
+- name: Deploy
+  hosts: all
+  vars:
+    ansistrano_deploy_from: "{{ playbook_dir }}/"
+    ansistrano_deploy_to: "/var/www/app"
+    ansistrano_after_update_code_tasks_file: "{{ playbook_dir }}/after-update-code.yml"
+    ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/after-symlink.yml"
+    ansistrano_keep_releases: 3
+  roles:
+  - { role: ansistrano.deploy }
+```
+
+---
+
 # Continuous Deployment
 
 > Wiki: Непрерывное развертывание (CD) - это процесс выпуска ПО, который использует автоматизированное тестирование для проверки правильности и стабильности изменений в кодовой базе для немедленного автономного развертывания в производственной среде.
 
----
-layout: center
----
-
-# Теперь можем построить CI/CD пайплайн
+При создании этой презентации был использован CI/CD :)
 
 ---
 
@@ -633,18 +730,90 @@ layout: center
 layout: center
 ---
 
-# Стратегии деплоя
+# А как же про модель ветвления? Gitflow, github flow вот это вот всё?
 
+Это не так важно, потому что зависит от того какие процессы у вас в команде.
+
+* Деплой по коммиту в мастер - самый простой и удобный способ, если вы один или вас пара человек
+* Релизы, девелоп, мастер, если не можете деплоить несколько раз в день, если у вас есть релизы
+* Выберите ту модель, которая вам помогает, а не заставляет испытывать боль
+
+---
+layout: center
+---
+
+# Время для вопросов
+
+В этом блоке было:
+
+* Continuous integration
+* CI-сервера
+* Деплой
+* Continuous Deployment
+* CI/CD Pipeline
+
+---
+layout: center
 ---
 
 # Стратегии деплоя
 
+Стратегия деплоя - условно сопособ раскатки приложения, чтобы обеспечить отсутствие прерывания сервиса (zero-downtime deployment)
+
+---
+
+# Recreate
+
 * Recreate - просто убиваем старую версию, запускаем новую
+* Самый дешевый способ
+* Подходит, если есть некая сессия и приложение в 1 экземпляре (например сервер игры)
+
+<img src="/deploy-strategies/recreate.gif" class="w-120">
+
+---
+
+# Ramped
+
 * Ramped (rolling-update or incremental) - Старая версия постепенно заменяется новой
+* Требуется наличие балансера и минимум 2 сервера
+* База данных должна уметь работать с новой и старой версией приложения
+
+<img src="/deploy-strategies/ramped.gif" class="w-120">
+
+---
+
+# Blue/Green
+
 * Blue/Green - новая версия живет вместе старой. Потом старая отключается
-* Canary - часть  трафика уходит на новую версию
+* Можно провести эксперименты с новой версией и боевой базой.
+
+<img src="/deploy-strategies/blue-green.gif" class="w-120">
+
+---
+
+# Canary
+
+* Canary - часть трафика уходит на новую версию
+* Может подойти для экспериментов (тестировании фич)
+
+<img src="/deploy-strategies/canary.gif" class="w-120">
+
+---
+
+# A/B testing
+
 * A/B testing - деление трафика по определенному признаку
+
+<img src="/deploy-strategies/a-b.gif" class="w-120">
+
+---
+
+# Shadow
+
 * Shadow - дублирование трафика на новую версию без влияния на основное приложение
+* Могут возникнуть сложности - например задвоение платежных запросов
+
+<img src="/deploy-strategies/shadow.gif" class="w-120">
 
 <!--
 https://thenewstack.io/deployment-strategies/
@@ -655,13 +824,19 @@ layout: image
 image: /k8s-deployment-strategies.png
 ---
 
+---
+
 # А куда деплоить?
 
-* Shared hosting
-* Clouds
-* Github Pages
-* Remote server
+* Shared hosting - хостинги с веб-панелькой с предустановленным софтом
+* Clouds - облачные провайдеры и выделенные сервера
+* Github Pages - подойдет для статики и документации.
+* Surge.sh и тд - для документации и статики. Эта презентация заделпоена на surge.sh :)
+* Remote server - железный сервер, который находится где-то удаленно или под столом админа
+* PaaS, serverless - типа Heroku. Максимально далеко уходим от администрирования.
 
+---
+layout: two-cols
 ---
 
 # Heroku
@@ -671,7 +846,12 @@ image: /k8s-deployment-strategies.png
 * Можно подключить базу, редис и тд
 * CLI для управления приложением
 
-![bg right w:70%](/heroku-deploy.gif)
+* Можно автоматизировать деплой, добавив в CI-скрипт шаг с деплоем на хероку.
+* Heroku может интегрироваться с Github, тогда будет автодеплой по коммиту в нужной ветке (коммит должен быть в Github)
+
+::right::
+
+![](/heroku-deploy.gif)
 
 ---
 
@@ -681,19 +861,20 @@ image: /k8s-deployment-strategies.png
 * Создание базы данных, кластеров Kubernetes
 * Парковка домена
 * При регистрации по [ссылке](https://m.do.co/c/e702f9a99145) выдают 100$ на 60 дней
+* Достаточно простой интерфейс и тарификация. Можно создать приложение по типу как в Heroku (но стоит это дороже), вместо ручной конфигурации сервера
+
+Альтернативы DO: Amazom Web Services, Linode и другие облачные провайдеры
 
 ---
-
-# Итоги
-
-* Узнали, что такое Devops, CI/CD, Deploy
-* Познакомились с новыми полезными инструментами (Vagrant, Ansible)
-
+layout: center
 ---
 
-### Задание
+# Время для вопросов
 
-Применить полученные знания на практике. Добавить CI/CD, автоматизировать деплой на вашем тестовом проекте
+В этом блоке было:
+
+* Стратегии деплоя
+* Хостинги
 
 ---
 
@@ -709,14 +890,62 @@ image: /k8s-deployment-strategies.png
 
 ---
 
+# Итоги
+
+* Немного коснулись, что такое Devops, подходы и практики
+* Познакомились с новыми полезными инструментами (Vagrant, Ansible)
+* Из каких инструментов собрать пайплайн CI/CD и автоматизировать деплой
+
+
+---
+
+# Домашнее задание
+
+Применить полученные знания на практике. Добавить CI/CD, автоматизировать деплой на вашем тестовом проекте
+
+---
+layout: two-cols
+---
+
 # Ссылки
 
-* Гайды - https://guides.hexlet.io/
-* Ansible - https://www.ansible.com/
-* [Никита Соболев — Автоматизируем все с Github Actions](https://www.youtube.com/watch?v=QoCSvwkP_lQ)
+## Гайды
+
+* [Что такое деплой?](https://guides.hexlet.io/deploy/)
+* [Что такое "управление конфигурацией"?](https://guides.hexlet.io/configuration-management/)
+* [Что такое хостинг и домен сайта простыми словами?](https://guides.hexlet.io/hosting/)
+* [Что такое Makefile и как начать его использовать](https://guides.hexlet.io/makefile-as-task-runner/)
+* [Чек-лист хороших инженерных практик в компаниях](https://guides.hexlet.io/check-list-of-engineering-practices/)
+
+## Инструменты
+
+* [Ansible](https://www.ansible.com/)
+* [GitHub Actions Documentation](https://docs.github.com/en/actions)
+* [GitLab CI/CD Examples](https://docs.gitlab.com/ce/ci/examples/README.html#contributed-examples)
+
+::right::
+
+## Видео
+
 * [Инфраструктура как код](https://www.youtube.com/watch?v=m_5sos7i1Qk)
 * [Вебинар: Stateful vs. Stateless ](https://www.youtube.com/watch?v=WPCz_U7D8PI)
 * [Интервью с Алексеем Шараповым: о микросервисах](https://www.youtube.com/watch?v=OeUzjV6wPlc)
+* [Никита Соболев — Автоматизируем все с Github Actions](https://www.youtube.com/watch?v=QoCSvwkP_lQ)
+
+Помимо этого в репо презентации есть примеры кода и комментарии
+
+---
+
+# Контакты
+
+* feycot@gmail.com
+* https://github.com/fey
+* https://gitlab.com/feycot
+* https://www.linkedin.com/in/feycot/
+* https://t.me/time2run
+
+Задавайте вопросы, если что-то осталось непонятным, неуточненным, есть любопытство.
+Тегайте меня, если хотите ревью ДЗ - с удовольствием помогу чем смогу
 
 ---
 layout: end
