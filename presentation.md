@@ -20,7 +20,7 @@ layout: two-cols
 
 ::right::
 
-![](/me.jpg)
+<img src="/me.jpg" class="w-250px" />
 
 ---
 
@@ -41,6 +41,10 @@ layout: two-cols
 * Стратегии деплоя
 * Итоги, ссылки, литература, задание
 
+Между блоками будут секции для вопросов.
+
+---
+
 # Рассматриваемые инструменты
 
 * Vagrant
@@ -53,7 +57,10 @@ layout: two-cols
 ---
 layout: center
 ---
-# О Devops кратко
+
+# О Devops
+
+надеюсь, что коротко и ясно
 
 ---
 
@@ -77,6 +84,8 @@ layout: center
 -->
 
 ---
+layout: two-cols
+---
 
 # Почему Devops появился и широко распространился
 
@@ -88,7 +97,11 @@ layout: center
 
 * Между разработкой и доставкой на прод могло пройти много времени. Можно поздно узнать об обидном и простом баге
 
-* Слабая автоматизация и хрупкие скрипты
+Короче говоря хотелось меньше заниматься фигней
+
+::right::
+
+<img src="/reddit-devops-pipeline.jpg">
 
 ---
 
@@ -410,6 +423,36 @@ layout: center
 * Инфраструктура как код
 * Обеспечивает идемпотентность
 * Описывает желаемое состояние
+* Для работы Ansible нужен только ssh и python
+
+---
+
+# Базовые сущности Ansible
+
+Инвентори-файл - в нём описаны сервера
+
+```ini
+; ./inventory.ini
+[webservers]
+web-01 ansible_host=68.183.222.69 ansible_user=root
+web-02 ansible_host=68.183.213.233 ansible_user=root
+```
+
+Плейбук - в yaml формате описаны задачи для выполнения. Задачи в плейбуке могут выполняться на разных хостах, в том числе на локальных (например для выполнения миграций или оповещения о деплое)
+
+```yaml
+- name: configure and deploy the webservers and application code
+  hosts: webservers
+  remote_user: root
+  roles:
+    - web
+
+- name: deploy MySQL and configure the databases
+  hosts: dbservers
+  remote_user: root
+  roles:
+    - db
+```
 
 ---
 
@@ -529,6 +572,8 @@ layout: center
 Для это презентации тоже был сделан CI :)
 
 ---
+layout: two-cols
+---
 
 # CI-сервера
 
@@ -537,6 +582,10 @@ layout: center
 * Jenkins - не просто для CI, бесплатный и self-hosted, но я им не пользовался :)
 
 Это только сервера, которые запускают последовательно команды. А запускать они могут что угодно - от баш-скриптов, до docker
+
+::right::
+
+<img src="/ide-vs-jenkins.png" />
 
 ---
 layout: two-cols
@@ -894,9 +943,9 @@ layout: center
 * "Проект «Феникс». Роман о том, как DevOps меняет бизнес к лучшему" Джин Ким, Джордж Спаффорд, Кевин Бер
 * "Kubernetes в действии" Лукша Марко
 
-![bg right fit](/books/goal.jpg)
-![bg right fit](/books/project-phoenix.jpg)
-![bg right fit](/books/kubernetes-in-action.jpg)
+|   |   |   |
+|---|---|---|
+|<img src="/books/goal.jpg" class="w-120px">|<img src="/books/project-phoenix.jpg" class="w-120px">|<img src="/books/kubernetes-in-action.jpg" class="w-120px">|
 
 ---
 
@@ -906,12 +955,13 @@ layout: center
 * Познакомились с новыми полезными инструментами (Vagrant, Ansible)
 * Из каких инструментов собрать пайплайн CI/CD и автоматизировать деплой
 
-
 ---
 
 # Домашнее задание
 
 Применить полученные знания на практике. Добавить CI/CD, автоматизировать деплой на вашем тестовом проекте
+
+<img src="/box-of-devops.jpg" class="w-100">
 
 ---
 layout: two-cols
@@ -932,6 +982,7 @@ layout: two-cols
 * [Ansible](https://www.ansible.com/)
 * [GitHub Actions Documentation](https://docs.github.com/en/actions)
 * [GitLab CI/CD Examples](https://docs.gitlab.com/ce/ci/examples/README.html#contributed-examples)
+* [Vagrant](vagrantup.com)
 
 ::right::
 
