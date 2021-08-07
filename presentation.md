@@ -993,6 +993,10 @@ layout: two-cols
 * [Интервью с Алексеем Шараповым: о микросервисах](https://www.youtube.com/watch?v=OeUzjV6wPlc)
 * [Никита Соболев — Автоматизируем все с Github Actions](https://www.youtube.com/watch?v=QoCSvwkP_lQ)
 
+## Презентация
+
+* [fey/xsolla-summerschool-2021-devops](https://github.com/fey/xsolla-summerschool-2021-devops)
+
 Помимо этого в репо презентации есть примеры кода и комментарии
 
 ---
