@@ -81,7 +81,7 @@ layout: two-cols
 
 ::right::
 
-<img src="handshake-devops.png">
+<img src="/handshake-devops.png">
 
 <!--
 История начинается в Бельгии 2007-ого с парня по имени
